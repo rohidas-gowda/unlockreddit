@@ -61,7 +61,7 @@ require_once 'router.php';
 
 <body class="bg-gray-100 font-sans no-scrollbar">
 
-    <div class="bg-gray-100 sticky top-0 w-screen">
+    <div class="bg-gray-100 sticky top-0 w-screen shadow-lg">
         <div class="py-3 ml-5 inline-block">
             <h2 class="text-gray-600 text-xl font-medium">Unlock Reddit</h2>
         </div>
@@ -73,36 +73,22 @@ require_once 'router.php';
     </div>
 
 
-    <div class="bg-gray-100 w-screen my-4">
+    <div class="bg-gray-100 w-screen">
 
-        <div class="m-2 h-72 bg-gray-800 grid grid-cols-1 gap-2 justify-items-center md:grid-cols-2 md:gap-1 md:h-36 lg:grid-cols-4 lg:h-24">
+        <div class="m-2 h-36 bg-gray-800 grid grid-cols-1 gap-2 justify-items-center md:grid-cols-2 md:gap-1 md:h-24 lg:h-24 lg:grid-cols-2">
 
-        <div class="mt-8">
-            <input id="subreddit_input" class="text-center w-72 p-1 rounded-lg outline-0 sm:w-96 md:w-64 lg:w-56 xl:w-72 2xl:w-80" type="text" name="" value="" placeholder="Enter the subreddit...">
+        <div class="mt-8 flex justify-center md:justify-end lg:justify-center w-full">
+            <input id="subreddit_input" class="text-center h-9 w-8/12 p-1 rounded-lg outline-0 sm:w-8/12 md:w-10/12 lg:w-3/5 xl:w-8/12 2xl:w-7/12" type="text" name="" value="" placeholder="Enter the subreddit...">
         </div>
 
-        <div class="mt-3 md:mt-8">
-            <select id="select_keyword_category" class="w-72 p-1 rounded-lg outline-0 sm:w-96 md:w-64 lg:w-56 xl:w-72 2xl:w-80 text-center">
-                <option value="questions" selected>Ask</option>
-                <option value="advice">Need Advice</option>
-                <option value="pain">Pain & Anger</option>
-                <option value="solution">Need Solution</option>
-            </select>
-        </div>
-
-        <div class="mt-3 md:mt-0 lg:mt-8">
-            <select id="select_search_keywords" class="w-72 p-1 rounded-lg outline-0 sm:w-96 md:w-64 lg:w-56 xl:w-72 2xl:w-80 text-center">
-            </select>
-        </div>
-
-        <div class="mt-2 lg:mt-8">
-            <button id="btn_subreddit_select" class="bg-yellow-300 hover:bg-green-500 hover:font-bold hover:text-white p-1 rounded-lg w-24 sm:w-36 md:w-40 lg:w-44 xl:w-48 2xl:w-52" type="button" name="button">
+        <div class="mt-2 flex justify-center lg:justify-start md:mt-8 w-full">
+            <button id="btn_subreddit_select" class="h-9 bg-yellow-300 hover:bg-green-500 hover:font-bold hover:text-white p-1 rounded-lg w-36 sm:w-36 md:w-40 lg:w-44 xl:w-48 2xl:w-52" type="button" name="button">
                 Search
             </button>
         </div>    
         </div>
 
-        <div id="subreddit_post" class="my-16">
+        <div id="subreddit_post" class="my-4">
         </div>
 
     </div>
@@ -138,67 +124,6 @@ require_once 'router.php';
                 },
             });
 
-            $('#select_search_keywords').append(QuestionsOptions());
-
-            $('#select_keyword_category').change(function() {
-                var keyword_category = $('#select_keyword_category').val();
-                $('#select_search_keywords').html('');
-                switch (keyword_category) {
-                    case 'questions':
-                        $('#select_search_keywords').append(QuestionsOptions());
-                        break;
-
-                    case 'advice':
-                        $('#select_search_keywords').append(AdviceOptions());
-                        break;
-
-                    case 'pain':
-                        $('#select_search_keywords').append(PainOptions());
-                        break;
-
-                    case 'solution':
-                        $('#select_search_keywords').append(SolutionOptions());
-                        break;
-
-                    default:
-                        $('#select_search_keywords').append(QuestionsOptions());
-                        break;
-                }
-            });
-
-            function QuestionsOptions() {
-                var questionRequest = '<option value=\'?\'>Questions</option>';
-                return questionRequest;
-            }
-
-            function AdviceOptions() {
-                var adviceRequest;
-                adviceRequest += '<option value=\'how to\'>How to...</option>';
-                adviceRequest += '<option value=\'help\'>Help...</option>';
-                adviceRequest += '<option value=\'tips\'>Tips...</option>';
-                return adviceRequest;
-            }
-
-            function PainOptions() {
-                var painAndAnger;
-                painAndAnger += '<option value=\'i hate\'>I hate...</option>';
-                painAndAnger += '<option value=\'this sucks\'>This sucks...</option>';
-                painAndAnger += '<option value=\'i\'m tired\'>I\'m tired...</option>';
-                painAndAnger += '<option value=\'how frustrating\'>How frustrating...</option>';
-                return painAndAnger;
-            }
-
-            function SolutionOptions() {
-                var solutionRequest;
-                solutionRequest += '<option value=\'any tools\'>Any tools...</option>';
-                solutionRequest += '<option value=\'i wish\'>I wish...</option>';
-                solutionRequest += '<option value=\'any app\'>Any apps...</option>';
-                solutionRequest += '<option value=\'any websites\'>Any websites...</option>';
-                solutionRequest += '<option value=\'any solution\'>Any solutions...</option>';
-                solutionRequest += '<option value=\'any sites\'>Any sites...</option>';
-                return solutionRequest;
-            }
-
             $("#btn_subreddit_select").click(function() {
                 $("#subreddit_post").html("");
                 $("#subreddit_post").append(PostPreloader());
@@ -209,10 +134,9 @@ require_once 'router.php';
                 } else {
                     NoErrorInputField();
                     user_selected_subreddit = $("#subreddit_input").val();
-                    user_selected_keyword = $("#select_search_keywords").find(":selected").val();
                     user_selected_subreddit_trim = user_selected_subreddit.replace(/ *\([^)]*\) */g, "");
 
-                    GetSubredditsPost(user_selected_subreddit_trim, user_selected_keyword);
+                    GetSubredditsPost(user_selected_subreddit_trim);
                 }
             });
 
@@ -265,7 +189,7 @@ require_once 'router.php';
                 $("#subreddit_input").css("background-color", "#ffffff");
             }
 
-            function GetSubredditsPost(subreddit, search_keyword) {
+            function GetSubredditsPost(subreddit) {
                 $.ajax({
                     url: 'https://www.reddit.com/r/' + subreddit + '.json?&limit=100',
                     dataType: 'json',
@@ -277,7 +201,8 @@ require_once 'router.php';
                             var subreddit_post_array = [];
 
                             for (var i = result.data.children.length - 1; i >= 0; i--) {
-                                if (result.data.children[i].data.title.includes(search_keyword)) {
+                                if (result.data.children[i].data.title.includes("?") ||
+                                result.data.children[i].data.title.includes("help")) {
                                     subreddit_post_array.push(i);
                                     $("#subreddit_post").append("<div class=\"md:w-4/6 mx-2 md:mx-auto px-4 py-4 bg-gray-100 border border-gray-250 hover:border-gray-400 hover:font-semibold\"><h2 class=\"text-gray-600\"><a href=" + result.data.children[i].data.url + " target=\"_blank\">" + result.data.children[i].data.title + "</a></h2></div>");
                                 }
@@ -306,25 +231,25 @@ require_once 'router.php';
                 return postPreloaderHtml;
             }
 
-            function HighlightSearchKeywords() {
-                if ($("#select_search_keywords").val() != "?") {
+            // function HighlightSearchKeywords() {
+            //     if ($("#select_search_keywords").val() != "?") {
 
-                    $("#subreddit_post").find(".highlight").removeClass("highlight");
+            //         $("#subreddit_post").find(".highlight").removeClass("highlight");
 
-                    var searchword = $("#select_search_keywords").val();
+            //         //var searchword = $("#select_search_keywords").val();
 
-                    var custfilter = new RegExp(searchword, "ig");
+            //         var custfilter = new RegExp(searchword, "ig");
 
-                    var repstr = "<span class='highlight'>" + searchword + "</span>";
+            //         var repstr = "<span class='highlight'>" + searchword + "</span>";
 
-                    if (searchword != "") {
-                        $('#subreddit_post').each(function() {
-                            $(this).html($(this).html().replace(custfilter, repstr));
-                        })
-                    }
+            //         if (searchword != "") {
+            //             $('#subreddit_post').each(function() {
+            //                 $(this).html($(this).html().replace(custfilter, repstr));
+            //             })
+            //         }
 
-                }
-            }
+            //     }
+            // }
 
             function ShowNoData() {
                 var noDataHtml = '<div class=\"pt-48\"><img class=\"mx-auto\" src=\"images/folder.png\" alt=\"no-data\"><h2 class=\"text-center font-semibold text-gray-600\">No Data!</h2></div>';
