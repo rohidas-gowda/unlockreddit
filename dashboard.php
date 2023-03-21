@@ -38,6 +38,7 @@ require_once 'router.php';
             background: #4b5563;
             padding: 2px;
             color: white;
+            border-radius: 4px;
         }
 
 
@@ -202,7 +203,22 @@ require_once 'router.php';
 
                             for (var i = result.data.children.length - 1; i >= 0; i--) {
                                 if (result.data.children[i].data.title.includes("?") ||
-                                result.data.children[i].data.title.includes("help")) {
+                                result.data.children[i].data.title.includes("help") ||
+                                result.data.children[i].data.title.includes("how") ||
+                                result.data.children[i].data.title.includes("hate") ||
+                                result.data.children[i].data.title.includes("worst") ||
+                                result.data.children[i].data.title.includes("sucks") ||
+                                result.data.children[i].data.title.includes("annoying") ||
+                                result.data.children[i].data.title.includes("struggling") ||
+                                result.data.children[i].data.title.includes("tips") ||
+                                result.data.children[i].data.title.includes("suggest") ||
+                                result.data.children[i].data.title.includes("any tools") ||
+                                result.data.children[i].data.title.includes("any apps") ||
+                                result.data.children[i].data.title.includes("any website") ||
+                                result.data.children[i].data.title.includes("any sites") ||
+                                result.data.children[i].data.title.includes("any software") ||
+                                result.data.children[i].data.title.includes("problem")
+                                ) {
                                     subreddit_post_array.push(i);
                                     $("#subreddit_post").append("<div class=\"md:w-4/6 mx-2 md:mx-auto px-4 py-4 bg-gray-100 border border-gray-250 hover:border-gray-400 hover:font-semibold\"><h2 class=\"text-gray-600\"><a href=" + result.data.children[i].data.url + " target=\"_blank\">" + result.data.children[i].data.title + "</a></h2></div>");
                                 }
@@ -231,25 +247,37 @@ require_once 'router.php';
                 return postPreloaderHtml;
             }
 
-            // function HighlightSearchKeywords() {
-            //     if ($("#select_search_keywords").val() != "?") {
+            function HighlightSearchKeywords() {
+                    $("#subreddit_post").find(".highlight").removeClass("highlight");
 
-            //         $("#subreddit_post").find(".highlight").removeClass("highlight");
+                    var search_keywords = [
+                        "help", "how",
+                        "hate", "worst",
+                        "sucks", "annoying",
+                        "struggling", "tips",
+                        "suggest", "any tools",
+                        "any apps", "any website",
+                        "any sites", "any software",
+                        "problem"
+                    ]
 
-            //         //var searchword = $("#select_search_keywords").val();
+                    var searchword;
+                    for(let i=0; i<search_keywords.length; i++) {
+                        searchword = search_keywords[i];
 
-            //         var custfilter = new RegExp(searchword, "ig");
+                        var custfilter = new RegExp(searchword, "ig");
 
-            //         var repstr = "<span class='highlight'>" + searchword + "</span>";
+                        var repstr = "<span class='highlight'>" + searchword + "</span>";
 
-            //         if (searchword != "") {
-            //             $('#subreddit_post').each(function() {
-            //                 $(this).html($(this).html().replace(custfilter, repstr));
-            //             })
-            //         }
+                    if (searchword != "") {
+                        $('#subreddit_post').each(function() {
+                            $(this).html($(this).html().replace(custfilter, repstr));
+                        })
+                    }
+                    }
 
-            //     }
-            // }
+                    
+            }
 
             function ShowNoData() {
                 var noDataHtml = '<div class=\"pt-48\"><img class=\"mx-auto\" src=\"images/folder.png\" alt=\"no-data\"><h2 class=\"text-center font-semibold text-gray-600\">No Data!</h2></div>';
