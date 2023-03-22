@@ -32,9 +32,11 @@ if (isset($_SESSION['user_token'])) {
 </head>
 
 <body
-    class="bg-gray-100 h-[calc(100vh-128px)] sm:h-[calc(100vh-160px)] md:h-[calc(100vh-224px)] lg:h-[calc(100vh-240px)] xl:h-[calc(100vh-256px)] 2xl:h-[calc(100vh-288px)]">
+    class="bg-neutral-900 h-[calc(100vh-128px)] sm:h-[calc(100vh-160px)] md:h-[calc(100vh-224px)] lg:h-[calc(100vh-240px)] xl:h-[calc(100vh-256px)] 2xl:h-[calc(100vh-288px)]">
 
-    <h1 class="text-6xl text-gray-800 h-48 text-center mt-32 px-4 sm:mt-40 md:mt-56 md:h-40 lg:mt-60 lg:h-36 2xl:mt-64">
+    <div><h2 class="mt-8 text-2xl text-center font-semibold md:text-left md:ml-10"><span style="color: #ffdb84;">Unlock</span><span style="color: #379bf7;"> Reddit</span></h2></div>
+
+    <h1 style="color: #379bf7;" class="text-6xl h-48 text-center mt-24 px-4 sm:mt-40 md:mt-36 md:h-40 lg:mt-36 lg:h-36 2xl:mt-36">
         <a href="" class="typewrite text-center" data-period="2000"
             data-type='[ "Run Out of Blog Post Ideas?", "Never Again!" ]'>
             <span class="wrap"></span>
@@ -44,7 +46,7 @@ if (isset($_SESSION['user_token'])) {
     <div class="text-center mt-12 md:mt-8 lg:mt-6 xl:mt-4 2xl:mt-2">
     <?php
     echo "<a href='" . $client->createAuthUrl() . "'>
-    <button class=\"bg-gradient-to-r from-gray-700 to-gray-900 hover:from-sky-500 hover:to-blue-500 text-gray-100 rounded-lg p-2 text-lg\">Get Blog Post Ideas</button>
+    <button class=\"bg-yellow-300 hover:bg-white font-bold text-black rounded-lg p-2 text-lg\">Get Blog Post Ideas</button>
     </a>";
     ?>
     </div>
