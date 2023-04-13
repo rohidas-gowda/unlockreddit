@@ -35,7 +35,7 @@ require_once 'router.php';
         }
 
         .highlight {
-            background: #4b5563;
+            background: #379bf7;
             padding: 2px;
             color: white;
             border-radius: 4px;
@@ -57,6 +57,16 @@ require_once 'router.php';
         li:hover>button svg {
             transform: rotate(-270deg);
         }
+
+        .blink_text {
+            animation: blinker 2s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -64,10 +74,11 @@ require_once 'router.php';
 
     <div class="bg-gray-100 sticky top-0 w-screen shadow-lg">
         <div class="py-3 ml-5 inline-block">
-            <h2 class="text-gray-600 text-xl font-medium">Unlock Reddit</h2>
+            <h2 class="text-gray-600 text-xl font-medium">Unlock Reddit</span></h2>
         </div>
 
         <div class="py-3 mr-5 inline-block float-right">
+
             <img src="<?= $userinfo['picture'] ?>" alt="" class="rounded-full inline" height="24" width="24">
             <a href="logout.php" class="font-bold text-red-600 inline">Logout</a>
         </div>
@@ -76,17 +87,21 @@ require_once 'router.php';
 
     <div class="bg-gray-100 w-screen">
 
-        <div class="m-2 h-36 bg-gray-800 grid grid-cols-1 gap-2 justify-items-center md:grid-cols-2 md:gap-1 md:h-24 lg:h-24 lg:grid-cols-2">
+        <div class="rounded-lg m-2 h-36 bg-slate-600 grid grid-cols-1 gap-2 justify-items-center md:grid-cols-2 md:gap-1 md:h-16 md:w-4/6 md:mx-2 md:mx-auto md:mx-36 lg:h-16 lg:grid-cols-2">
 
-        <div class="mt-8 flex justify-center md:justify-end lg:justify-center w-full">
-            <input id="subreddit_input" class="text-center h-9 w-8/12 p-1 rounded-lg outline-0 sm:w-8/12 md:w-10/12 lg:w-3/5 xl:w-8/12 2xl:w-7/12" type="text" name="" value="" placeholder="Enter the subreddit...">
+            <div class="mt-8 md:mt-4 flex justify-center md:justify-end lg:justify-center w-full">
+                <input id="subreddit_input" class="text-center h-9 w-8/12 p-1 rounded-lg outline-0 sm:w-8/12 md:w-10/12 lg:w-3/5 xl:w-8/12 2xl:w-7/12" type="text" name="" value="" placeholder="Enter the subreddit...">
+            </div>
+
+            <div class="mt-2 flex justify-center lg:justify-start md:mt-4 w-full">
+                <button id="btn_subreddit_select" class="h-9 bg-yellow-300 hover:bg-yellow-400 hover:font-bold hover:text-black p-1 rounded-lg w-36 sm:w-36 md:w-40 lg:w-44 xl:w-48 2xl:w-52" type="button" name="button">
+                    Search
+                </button>
+            </div>
         </div>
 
-        <div class="mt-2 flex justify-center lg:justify-start md:mt-8 w-full">
-            <button id="btn_subreddit_select" class="h-9 bg-yellow-300 hover:bg-green-500 hover:font-bold hover:text-white p-1 rounded-lg w-36 sm:w-36 md:w-40 lg:w-44 xl:w-48 2xl:w-52" type="button" name="button">
-                Search
-            </button>
-        </div>    
+        <div class="rounded-lg m-2 h-6 bg-slate-300 grid grid-cols-1 gap-2 justify-items-center md:w-4/6 md:mx-2 md:mx-auto md:mx-36">
+            <a href="https://blog.unlockreddit.com/unlockreddit-blogpost-ideas/" class="blink_text text-center font-bold text-red-500" target="_blank">How to Guide?</a>
         </div>
 
         <div id="subreddit_post" class="my-4">
@@ -203,21 +218,21 @@ require_once 'router.php';
 
                             for (var i = result.data.children.length - 1; i >= 0; i--) {
                                 if (result.data.children[i].data.title.includes("?") ||
-                                result.data.children[i].data.title.includes("help") ||
-                                result.data.children[i].data.title.includes("how") ||
-                                result.data.children[i].data.title.includes("hate") ||
-                                result.data.children[i].data.title.includes("worst") ||
-                                result.data.children[i].data.title.includes("sucks") ||
-                                result.data.children[i].data.title.includes("annoying") ||
-                                result.data.children[i].data.title.includes("struggling") ||
-                                result.data.children[i].data.title.includes("tips") ||
-                                result.data.children[i].data.title.includes("suggest") ||
-                                result.data.children[i].data.title.includes("any tools") ||
-                                result.data.children[i].data.title.includes("any apps") ||
-                                result.data.children[i].data.title.includes("any website") ||
-                                result.data.children[i].data.title.includes("any sites") ||
-                                result.data.children[i].data.title.includes("any software") ||
-                                result.data.children[i].data.title.includes("problem")
+                                    result.data.children[i].data.title.includes("help") ||
+                                    result.data.children[i].data.title.includes("how") ||
+                                    result.data.children[i].data.title.includes("hate") ||
+                                    result.data.children[i].data.title.includes("worst") ||
+                                    result.data.children[i].data.title.includes("sucks") ||
+                                    result.data.children[i].data.title.includes("annoying") ||
+                                    result.data.children[i].data.title.includes("struggling") ||
+                                    result.data.children[i].data.title.includes("tips") ||
+                                    result.data.children[i].data.title.includes("suggest") ||
+                                    result.data.children[i].data.title.includes("any tools") ||
+                                    result.data.children[i].data.title.includes("any apps") ||
+                                    result.data.children[i].data.title.includes("any website") ||
+                                    result.data.children[i].data.title.includes("any sites") ||
+                                    result.data.children[i].data.title.includes("any software") ||
+                                    result.data.children[i].data.title.includes("problem")
                                 ) {
                                     subreddit_post_array.push(i);
                                     $("#subreddit_post").append("<div class=\"md:w-4/6 mx-2 md:mx-auto px-4 py-4 bg-gray-100 border border-gray-250 hover:border-gray-400 hover:font-semibold\"><h2 class=\"text-gray-600\"><a href=" + result.data.children[i].data.url + " target=\"_blank\">" + result.data.children[i].data.title + "</a></h2></div>");
@@ -248,35 +263,35 @@ require_once 'router.php';
             }
 
             function HighlightSearchKeywords() {
-                    $("#subreddit_post").find(".highlight").removeClass("highlight");
+                $("#subreddit_post").find(".highlight").removeClass("highlight");
 
-                    var search_keywords = [
-                        "help", "how",
-                        "hate", "worst",
-                        "sucks", "annoying",
-                        "struggling", "tips",
-                        "suggest", "any tools",
-                        "any apps", "any website",
-                        "any sites", "any software",
-                        "problem"
-                    ]
+                var search_keywords = [
+                    "help", "how",
+                    "hate", "worst",
+                    "sucks", "annoying",
+                    "struggling", "tips",
+                    "suggest", "any tools",
+                    "any apps", "any website",
+                    "any sites", "any software",
+                    "problem"
+                ]
 
-                    var searchword;
-                    for(let i=0; i<search_keywords.length; i++) {
-                        searchword = search_keywords[i];
+                var searchword;
+                for (let i = 0; i < search_keywords.length; i++) {
+                    searchword = search_keywords[i];
 
-                        var custfilter = new RegExp(searchword, "ig");
+                    var custfilter = new RegExp(searchword, "ig");
 
-                        var repstr = "<span class='highlight'>" + searchword + "</span>";
+                    var repstr = "<span class='highlight'>" + searchword + "</span>";
 
                     if (searchword != "") {
                         $('#subreddit_post').each(function() {
                             $(this).html($(this).html().replace(custfilter, repstr));
                         })
                     }
-                    }
+                }
 
-                    
+
             }
 
             function ShowNoData() {
